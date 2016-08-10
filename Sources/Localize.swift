@@ -22,43 +22,12 @@ public let LCLLanguageChangeNotification = "LCLLanguageChangeNotification"
 
 // MARK: Localization Syntax
 
-/**
-Swift 1.x friendly localization syntax, replaces NSLocalizedString
-- Parameter string: Key to be localized.
-- Returns: The localized string.
-*/
-public func Localized(string: String) -> String {
-    return string.localized()
-}
-
-/**
- Swift 1.x friendly localization syntax with format arguments, replaces String(format:NSLocalizedString)
- - Parameter string: Key to be localized.
- - Returns: The formatted localized string with arguments.
- */
-public func Localized(string: String, arguments: CVarArgType...) -> String {
-    return String(format: string.localized(), arguments: arguments)
-}
-
-/**
- Swift 1.x friendly plural localization syntax with a format argument
- 
- - parameter string:   String to be formatted
- - parameter argument: Argument to determine pluralisation
- 
- - returns: Pluralized localized string.
- */
-public func LocalizedPlural(string: String, argument: CVarArgType) -> String {
-    return string.localizedPlural(argument)
-}
-
-
 public extension String {
     /**
      Swift 2 friendly localization syntax, replaces NSLocalizedString
      - Returns: The localized string.
      */
-    func localized() -> String {
+    func lcl_localized() -> String {
         if let path = NSBundle.mainBundle().pathForResource(Localize.currentLanguage(), ofType: "lproj"), bundle = NSBundle(path: path) {
             return bundle.localizedStringForKey(self, value: nil, table: nil)
         }
@@ -72,8 +41,8 @@ public extension String {
      Swift 2 friendly localization syntax with format arguments, replaces String(format:NSLocalizedString)
      - Returns: The formatted localized string with arguments.
      */
-    func localizedFormat(arguments: CVarArgType...) -> String {
-        return String(format: localized(), arguments: arguments)
+    func lcl_localizedFormat(arguments: CVarArgType...) -> String {
+        return String(format: lcl_localized(), arguments: arguments)
     }
     
     /**
@@ -83,8 +52,8 @@ public extension String {
      
      - returns: Pluralized localized string.
      */
-    func localizedPlural(argument: CVarArgType) -> String {
-        return NSString.localizedStringWithFormat(localized(), argument) as String
+    func lcl_localizedPlural(argument: CVarArgType) -> String {
+        return NSString.localizedStringWithFormat(lcl_localized(), argument) as String
     }
 }
 
